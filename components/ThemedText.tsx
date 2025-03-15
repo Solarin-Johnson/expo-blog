@@ -1,6 +1,7 @@
-import { Text, type TextProps, StyleSheet } from "react-native";
+import { Text, type TextProps, StyleSheet, useColorScheme } from "react-native";
 
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { useScaleFont } from "@/hooks/useFontScale";
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
@@ -16,15 +17,21 @@ export function ThemedText({
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const scale = useScaleFont();
+  const isLight = useColorScheme() === "light";
 
   return (
     <Text
       style={[
         { color },
-        type === "default" ? styles.default : undefined,
-        type === "title" ? styles.title : undefined,
-        type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
+        type === "default"
+          ? [styles.default(isLight), { fontSize: scale(20) }]
+          : undefined,
+        type === "title" ? styles.title() : undefined,
+        type === "subtitle"
+          ? [styles.subtitle(isLight), { fontSize: scale(14.5) }]
+          : undefined,
+        type === "link" ? styles.link() : undefined,
         style,
       ]}
       {...rest}
@@ -32,26 +39,26 @@ export function ThemedText({
   );
 }
 
-const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
+const styles = {
+  default: (light: boolean) => ({
+    fontFamily: light ? "GeistSemiBold" : "GeistMedium",
+    fontSize: 20,
     lineHeight: 24,
-    fontFamily: "GeistMedium",
-  },
-  title: {
+  }),
+  title: () => ({
     fontFamily: "GeistSemiBold",
     fontSize: 32,
     lineHeight: 32,
-  },
-  subtitle: {
-    fontFamily: "GeistRegular",
+  }),
+  subtitle: (light: boolean) => ({
+    fontFamily: light ? "GeistMedium" : "GeistRegular",
     fontSize: 14.5,
     lineHeight: 24,
-  },
-  link: {
+  }),
+  link: () => ({
     fontFamily: "GeistRegular",
     lineHeight: 30,
     fontSize: 16,
     color: "#0a7ea4",
-  },
-});
+  }),
+};

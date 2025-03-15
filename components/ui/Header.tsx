@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedText } from "../ThemedText";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ResponsiveText from "../ResponsiveText";
+import { useScaleFont } from "@/hooks/useFontScale";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 interface HeaderProps {
   title: string;
@@ -21,22 +22,28 @@ const Header = ({
   isBookmarked = false,
 }: HeaderProps) => {
   const { top } = useSafeAreaInsets();
+  const scaleFont = useScaleFont();
+  const text = useThemeColor({}, "text");
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
         <TouchableOpacity onPress={onBackPress} style={styles.actionBtn}>
-          <ThemedText>
-            <Ionicons name="chevron-back-outline" size={24} />
-          </ThemedText>
+          <Ionicons
+            name="chevron-back-outline"
+            color={text}
+            size={scaleFont(25)}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onBookmarkPress} style={styles.actionBtn}>
-          <ThemedText>
-            <Ionicons
-              name={isBookmarked ? "bookmark" : "bookmark-outline"}
-              size={23}
-            />
-          </ThemedText>
+        <TouchableOpacity
+          onPress={onBookmarkPress}
+          style={[styles.actionBtn, { paddingHorizontal: 2 }]}
+        >
+          <Ionicons
+            color={text}
+            name={isBookmarked ? "bookmark" : "bookmark-outline"}
+            size={scaleFont(24)}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.head}>
@@ -68,16 +75,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     paddingVertical: 16,
+    alignItems: "center",
     justifyContent: "space-between",
   },
   actionBtn: {},
-  title: {
-    flex: 1,
-  },
+  title: {},
   head: {
     flexDirection: "column",
     width: "100%",
-    gap: 8,
+    gap: 6,
   },
   content: {
     paddingVertical: 5,

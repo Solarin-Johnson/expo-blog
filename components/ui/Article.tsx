@@ -30,7 +30,7 @@ const Article: React.FC<ArticleProps> = ({ title, content, index }) => {
 const styles = StyleSheet.create({
   article: {
     marginVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     padding: 10,
     borderRadius: 5,
   },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     // marginBottom: 5,
   },
   title: {
-    fontSize: 20,
+    // fontSize: 20,
   },
   section: {
     marginTop: 10,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   content: {
     // fontSize: 14.5,
-    opacity: 0.9,
+    opacity: 0.8,
   },
 });
 

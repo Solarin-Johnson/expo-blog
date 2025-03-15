@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import Animated from "react-native-reanimated";
 import Header from "@/components/ui/Header";
@@ -30,8 +30,10 @@ export default function Index() {
             index={index + 1}
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={() => <View />}
+        ListFooterComponentStyle={{ height: 80 }}
       />
     </ThemedView>
   );

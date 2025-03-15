@@ -21,7 +21,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    GeistBold: require("../assets/fonts/Geist-Bold.ttf"),
     GeistSemiBold: require("../assets/fonts/Geist-SemiBold.ttf"),
     GeistMedium: require("../assets/fonts/Geist-Medium.ttf"),
     GeistRegular: require("../assets/fonts/Geist-Regular.ttf"),
