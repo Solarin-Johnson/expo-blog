@@ -7,6 +7,7 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   invert?: boolean;
+  light?: boolean;
   type?: "default" | "title" | "subtitle" | "link";
 };
 
@@ -15,13 +16,16 @@ export function ThemedText({
   lightColor,
   darkColor,
   invert,
+  light,
   type = "default",
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    invert ? "background" : "text"
-  );
+  const color = light
+    ? "#fff"
+    : useThemeColor(
+        { light: lightColor, dark: darkColor },
+        invert ? "background" : "text"
+      );
   const scale = useScaleFont();
   const isLight = useColorScheme() === "light";
 

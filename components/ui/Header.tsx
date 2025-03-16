@@ -34,17 +34,6 @@ const Header = ({
             size={scaleFont(25)}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={onBookmarkPress}
-          style={[styles.actionBtn, { paddingHorizontal: 2 }]}
-        >
-          <Ionicons
-            color={text}
-            name={isBookmarked ? "bookmark" : "bookmark-outline"}
-            size={scaleFont(24)}
-          />
-        </TouchableOpacity>
       </View>
       <View style={styles.head}>
         <View>

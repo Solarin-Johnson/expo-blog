@@ -10,7 +10,7 @@ type ArticleProps = {
 
 const Article: React.FC<ArticleProps> = ({ title, content, index }) => {
   return (
-    <View style={styles.article}>
+    <View style={styles.article} accessibilityRole="tab">
       <View style={styles.header}>
         <ThemedText style={styles.title} type="default">
           {title}

@@ -10,17 +10,13 @@ export const Colors = {
   light: {
     text: "#11181C",
     background: "#fff",
+    barColor: "#000000",
     tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
   },
   dark: {
     text: "#ECEDEE",
-    background: "#101010",
+    background: "#2B2B2B",
+    barColor: "#000000",
     tint: tintColorDark,
-    icon: "#9BA1A6",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
   },
 };
