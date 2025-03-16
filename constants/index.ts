@@ -5,7 +5,7 @@ export const BLOG_DATA = {
     "A practical guide to designing sleek, intuitive, and visually appealing mobile app interfaces.",
   content:
     "Great UI design is more than just looks—it improves usability, accessibility, and user experience. This guide covers essential principles for crafting clean and functional mobile app interfaces.",
-  author: "Dr. Emily Chen",
+  author: "Solarin Johnson",
   date: "2023-10-05",
   imageUrl: "https://example.com/images/clean-ui.jpg",
   tags: ["UI Design", "Mobile UX", "App Design"],
@@ -45,6 +45,14 @@ export const BLOG_DATA = {
       content: [
         "Buttons, gestures, and animations should feel smooth and natural. Ensure touch targets are at least 44x44 pixels for accessibility, making interactions effortless and reducing frustration.",
         "Use motion subtly—smooth transitions and microinteractions should enhance the experience, not distract from it. Animations should provide feedback, such as button press effects or loading indicators, to guide users.",
+      ],
+    },
+    {
+      title: "Icons and Imagery",
+      content: [
+        "Icons should be intuitive and universally recognizable. They help users navigate and understand actions quickly. Use a consistent style and size for icons throughout the app.",
+        "Images should be high quality and relevant. They can enhance the visual appeal and provide context, but avoid overloading the interface with too many images, which can slow down performance.",
+        "Optimize images for different screen sizes and resolutions. Use responsive images and consider using vector graphics (SVGs) for scalability and clarity on various devices.",
       ],
     },
   ],
