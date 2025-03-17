@@ -10,6 +10,7 @@ import { BLOG_DATA } from "@/constants";
 import { ThemedView } from "@/components/ThemedView";
 import Article from "@/components/ui/Article";
 import FlowBar from "@/components/ui/FlowBar";
+import TimeFlow from "@/components/ui/TimeFlow";
 
 const { content, title, sections } = BLOG_DATA;
 

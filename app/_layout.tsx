@@ -34,6 +34,8 @@ export default function RootLayout() {
           await SplashScreen.preventAutoHideAsync();
           await NavigationBar.setPositionAsync("absolute");
           await NavigationBar.setBackgroundColorAsync("#00000000");
+          await NavigationBar.setVisibilityAsync("hidden");
+          await NavigationBar.setBehaviorAsync("overlay-swipe");
         }
       } catch (e) {
         console.warn("Error setting navigation bar:", e);

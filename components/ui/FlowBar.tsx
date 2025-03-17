@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedProps,
   useAnimatedStyle,
   useDerivedValue,
+  useSharedValue,
   withDelay,
   withSpring,
   withTiming,
@@ -18,6 +19,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Circle } from "react-native-svg";
 import { StyleProp, ViewStyle } from "react-native";
 import { useScaleFont } from "@/hooks/useFontScale";
+import TimeFlow from "./TimeFlow";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -33,7 +35,7 @@ interface FlowBarProps {
 const PEEK_VIEW_HEIGHT = 50;
 const FULL_VIEW_HEIGHT = 32;
 const FULL_VIEW_COVER_HEIGHT = 70;
-const FULL_BAR_HEIGHT = 240;
+const FULL_BAR_HEIGHT = 260;
 const TIMING_CONFIG = { duration: 250, easing: Easing.out(Easing.ease) };
 const SPRING_CONFIG = {
   damping: 18,
@@ -41,8 +43,15 @@ const SPRING_CONFIG = {
   stiffness: 180,
 };
 
+const WORDS_PER_MINUTE = 200; // Average reading speed
+
 const { author, sections } = BLOG_DATA;
 const SECTIONS_TITLE = sections.map((section) => section.title);
+const TOTAL_WORDS = sections.reduce((acc, section) => {
+  return acc + section.content.join(" ").split(/\s+/).length;
+}, 0);
+
+const TOTAL_TIME = Math.ceil(TOTAL_WORDS / WORDS_PER_MINUTE);
 
 export default function FlowBar({
   currentIndex,
@@ -55,7 +64,7 @@ export default function FlowBar({
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const scrollProgress = useDerivedValue(() => progress.value);
+  const scrollProgress = useDerivedValue(() => Math.max(0, progress.value));
 
   const animatedTextStyle = useAnimatedStyle(() => {
     return {
@@ -87,8 +96,8 @@ export default function FlowBar({
 
   const animatedMainStyle = useAnimatedStyle(() => {
     return {
-      height: withTiming(isExpanded ? 90 : PEEK_VIEW_HEIGHT, TIMING_CONFIG),
-      padding: withTiming(isExpanded ? 6 : 0, TIMING_CONFIG),
+      height: withTiming(isExpanded ? 95 : PEEK_VIEW_HEIGHT, TIMING_CONFIG),
+      padding: withTiming(isExpanded ? 10 : 0, TIMING_CONFIG),
       gap: withTiming(isExpanded ? 3 : 0, TIMING_CONFIG),
     };
   });
@@ -170,7 +179,7 @@ export default function FlowBar({
       >
         <View
           style={{
-            paddingHorizontal: 16,
+            paddingHorizontal: 20,
           }}
         >
           <View
@@ -207,6 +216,7 @@ export default function FlowBar({
           />
         </View>
       </Animated.View>
+      <LinearProgress progress={scrollProgress} />
     </Animated.View>
   );
 }
@@ -257,7 +267,7 @@ const RadialProgress = ({
   isExpanded: boolean;
 }) => {
   const radius = PEEK_VIEW_HEIGHT - 12;
-  const strokeWidth = 10;
+  const strokeWidth = 9;
   const circumference = 2 * Math.PI * radius;
   const size = 32;
 
@@ -334,6 +344,56 @@ const Overlay = ({
       style={[styles.overlay, style]}
       dither
     />
+  );
+};
+
+const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
+  const totalTime = useSharedValue(TOTAL_TIME * 60);
+
+  const timeCovered = useDerivedValue(() => {
+    return Math.ceil(totalTime.value * progress.value);
+  });
+
+  return (
+    <View
+      style={{
+        paddingHorizontal: 20,
+        flex: 1,
+        gap: 12,
+        // backgroundColor: "red",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      <View>
+        <TimeFlow seconds={timeCovered} hours={false} />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          height: 7,
+          borderRadius: 3.5,
+          overflow: "hidden",
+          backgroundColor: "#ffffff40",
+        }}
+      >
+        <Animated.View
+          style={[
+            {
+              height: "100%",
+              backgroundColor: "#ffffffab",
+              borderRadius: 3,
+            },
+            useAnimatedStyle(() => ({
+              width: withTiming(`${progress.value * 100}%`, { duration: 5 }),
+            })),
+          ]}
+        />
+      </View>
+      <View>
+        <TimeFlow seconds={totalTime} hours={false} />
+      </View>
+    </View>
   );
 };
 
