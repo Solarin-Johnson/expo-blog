@@ -66,10 +66,10 @@ export default function RootLayout() {
         {/* Open Graph / Facebook */}
         <meta
           name="og:image"
-          content="https://opengraph.githubassets.com/918791ce57c3bcdf9c5320b062a51fa8d58352b9cda7853a648008a4f5b131a2/Solarin-Johnson/expo-blog"
+          content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
         />
         <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="600" />
+        <meta property="og:image:height" content="675" />
         <meta property="og:title" content="Expo Blog" />
         <meta
           property="og:description"
@@ -81,7 +81,7 @@ export default function RootLayout() {
         {/* Twitter */}
         <meta
           name="twitter:image"
-          content="https://opengraph.githubassets.com/918791ce57c3bcdf9c5320b062a51fa8d58352b9cda7853a648008a4f5b131a2/Solarin-Johnson/expo-blog"
+          content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Expo Blog" />
