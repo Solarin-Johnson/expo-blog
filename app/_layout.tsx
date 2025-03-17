@@ -62,11 +62,6 @@ export default function RootLayout() {
           name="description"
           content="Single screen blog demo with expo and reanimated."
         />
-        <link
-          rel="icon"
-          href="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/dp.png"
-          sizes="any"
-        />
 
         {/* Open Graph / Facebook */}
         <meta
