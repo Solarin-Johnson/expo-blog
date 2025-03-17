@@ -1,7 +1,6 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedText } from "../ThemedText";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ResponsiveText from "../ResponsiveText";
 import { useScaleFont } from "@/hooks/useFontScale";
 import { useThemeColor } from "@/hooks/useThemeColor";
@@ -10,24 +9,15 @@ interface HeaderProps {
   title: string;
   content: string;
   onBackPress: () => void;
-  onBookmarkPress: () => void;
-  isBookmarked?: boolean;
 }
 
-const Header = ({
-  title,
-  content,
-  onBackPress,
-  onBookmarkPress,
-  isBookmarked = false,
-}: HeaderProps) => {
-  const { top } = useSafeAreaInsets();
+const Header = ({ title, content, onBackPress }: HeaderProps) => {
   const scaleFont = useScaleFont();
   const text = useThemeColor({}, "text");
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity onPress={onBackPress} style={styles.actionBtn}>
+        <TouchableOpacity onPress={onBackPress}>
           <Ionicons
             name="chevron-back-outline"
             color={text}
@@ -37,12 +27,7 @@ const Header = ({
       </View>
       <View style={styles.head}>
         <View>
-          <ResponsiveText
-            style={styles.title}
-            text={title}
-            baseSize={28}
-            type="title"
-          />
+          <ResponsiveText text={title} baseSize={29} type="title" />
         </View>
         <ThemedText style={styles.content} type="subtitle">
           {content}
@@ -67,8 +52,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  actionBtn: {},
-  title: {},
   head: {
     flexDirection: "column",
     width: "100%",

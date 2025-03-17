@@ -26,7 +26,6 @@ export default function Index() {
 
     if (lastItem?.isViewable && lastItem.index !== null) {
       lastLoggedIndex.value = lastItem.index;
-      console.log(`Item ${lastItem.index} is in view`);
     }
   };
 
@@ -45,7 +44,6 @@ export default function Index() {
       scrollY.value = event.contentOffset.y;
       totalHeight.value =
         event.contentSize.height - event.layoutMeasurement.height;
-      // console.log(totalHeight.value, scrollY.value);
     },
   });
 
@@ -57,20 +55,14 @@ export default function Index() {
     <ThemedView style={{ flex: 1 }}>
       <Animated.FlatList
         ListHeaderComponent={() => (
-          <Header
-            title={title}
-            content={content}
-            onBackPress={() => {}}
-            onBookmarkPress={() => {}}
-            isBookmarked={false}
-          />
+          <Header title={title} content={content} onBackPress={() => {}} />
         )}
         style={{
           flex: 1,
           alignSelf: "center",
           maxWidth: 640,
         }}
-        contentContainerStyle={{ gap: 16, paddingBottom: 120 }}
+        contentContainerStyle={{ gap: 16, paddingBottom: 280 }}
         data={sections}
         renderItem={({ item, index }) => (
           <Article

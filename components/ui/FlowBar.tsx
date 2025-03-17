@@ -10,7 +10,6 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withDelay,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
@@ -20,9 +19,9 @@ import Svg, { Circle } from "react-native-svg";
 import { StyleProp, ViewStyle } from "react-native";
 import { useScaleFont } from "@/hooks/useFontScale";
 import TimeFlow from "./TimeFlow";
+import { Image } from "expo-image";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const isWeb = Platform.OS === "web";
 
 interface FlowBarProps {
@@ -142,7 +141,13 @@ export default function FlowBar({
           style={styles.handle}
           onPress={() => setIsExpanded((prev) => !prev)}
         >
-          <Animated.View style={[styles.handleCircle, animatedHandleStyle]} />
+          <Animated.View style={[styles.handleCircle, animatedHandleStyle]}>
+            <Image
+              style={styles.image}
+              source="https://avatars.githubusercontent.com/u/103961416?s=400&u=fd3d0b5e7536506aa57da94b49d54bc3c4f26fc4&v=4"
+              contentFit="cover"
+            />
+          </Animated.View>
         </Pressable>
         <View
           style={{
@@ -208,11 +213,6 @@ export default function FlowBar({
               backgroundColor + "99",
               backgroundColor + "dc",
             ]}
-            style={
-              {
-                // height: FULL_VIEW_HEIGHT,
-              }
-            }
           />
         </View>
       </Animated.View>
@@ -277,13 +277,19 @@ const RadialProgress = ({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(isExpanded ? 0 : 1, { duration: 100 }),
+      opacity: withSpring(isExpanded ? 0 : 1, SPRING_CONFIG),
       transform: [
         {
-          translateX: withTiming(isExpanded ? "100%" : 0, TIMING_CONFIG),
+          translateX: withSpring(
+            isExpanded ? FULL_BAR_HEIGHT : 0,
+            SPRING_CONFIG
+          ),
         },
         {
-          translateY: withTiming(isExpanded ? "200%" : 0, TIMING_CONFIG),
+          translateY: withSpring(
+            isExpanded ? FULL_BAR_HEIGHT : 0,
+            SPRING_CONFIG
+          ),
         },
       ],
     };
@@ -360,7 +366,6 @@ const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
         paddingHorizontal: 20,
         flex: 1,
         gap: 12,
-        // backgroundColor: "red",
         flexDirection: "row",
         alignItems: "center",
       }}
@@ -430,5 +435,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     backgroundColor: "#fff",
     borderRadius: "50%",
+    overflow: "hidden",
+  },
+  image: {
+    flex: 1,
+    width: "100%",
   },
 });

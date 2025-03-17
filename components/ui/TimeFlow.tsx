@@ -111,14 +111,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     opacity: 0.4,
   },
-  digitContainer: { width: "auto", height: DIGIT_HEIGHT, overflow: "hidden" },
+  digitContainer: { width: 8, height: DIGIT_HEIGHT, overflow: "hidden" },
   digitText: {
     textAlign: "center",
     lineHeight: DIGIT_HEIGHT,
     height: DIGIT_HEIGHT,
   },
   separator: {
-    marginHorizontal: 1.5,
     lineHeight: DIGIT_HEIGHT,
   },
 });
