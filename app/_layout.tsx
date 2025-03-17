@@ -14,6 +14,7 @@ import * as NavigationBar from "expo-navigation-bar";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Platform } from "react-native";
+import Head from "expo-router/head";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -54,13 +55,56 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-        </Stack>
-        <StatusBar style="auto" hidden hideTransitionAnimation="fade" />
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <>
+      <Head>
+        <title>Expo Blog</title>
+        <meta
+          name="description"
+          content="Single screen blog demo with expo and reanimated."
+        />
+        <link
+          rel="icon"
+          href="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/dp.png"
+          sizes="any"
+        />
+
+        {/* Open Graph / Facebook */}
+        <meta
+          name="og:image"
+          content="https://opengraph.githubassets.com/918791ce57c3bcdf9c5320b062a51fa8d58352b9cda7853a648008a4f5b131a2/Solarin-Johnson/expo-blog"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="600" />
+        <meta property="og:title" content="Expo Blog" />
+        <meta
+          property="og:description"
+          content="Single screen blog demo with expo and reanimated"
+        />
+        <meta property="og:url" content="https://expo-blog.expo.app" />
+        <meta property="og:type" content="blog" />
+
+        {/* Twitter */}
+        <meta
+          name="twitter:image"
+          content="https://opengraph.githubassets.com/918791ce57c3bcdf9c5320b062a51fa8d58352b9cda7853a648008a4f5b131a2/Solarin-Johnson/expo-blog"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Expo Blog" />
+        <meta
+          name="twitter:description"
+          content="Single screen blog demo with expo and reanimated."
+        />
+      </Head>
+      <SafeAreaProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+          </Stack>
+          <StatusBar style="auto" hidden hideTransitionAnimation="fade" />
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </>
   );
 }

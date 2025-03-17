@@ -72,9 +72,9 @@ export default function FlowBar({
         isExpanded ? FULL_BAR_HEIGHT : PEEK_VIEW_HEIGHT,
         SPRING_CONFIG
       ),
-      borderTopStartRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
-      borderTopEndRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
       borderRadius: withSpring(isExpanded ? 38 : 60, SPRING_CONFIG),
+      borderTopLeftRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
+      borderTopRightRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
     };
   });
 
@@ -392,7 +392,7 @@ const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
               borderRadius: 3,
             },
             useAnimatedStyle(() => ({
-              width: withTiming(`${progress.value * 100}%`, { duration: 5 }),
+              width: `${progress.value * 100}%`,
             })),
           ]}
         />
