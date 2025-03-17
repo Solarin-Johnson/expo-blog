@@ -72,7 +72,9 @@ export default function FlowBar({
         isExpanded ? FULL_BAR_HEIGHT : PEEK_VIEW_HEIGHT,
         SPRING_CONFIG
       ),
-      borderRadius: withSpring(isExpanded ? 24 : 60, SPRING_CONFIG),
+      borderTopStartRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
+      borderTopEndRadius: withSpring(isExpanded ? 30 : 60, SPRING_CONFIG),
+      borderRadius: withSpring(isExpanded ? 38 : 60, SPRING_CONFIG),
     };
   });
 
@@ -95,8 +97,8 @@ export default function FlowBar({
 
   const animatedMainStyle = useAnimatedStyle(() => {
     return {
-      height: withTiming(isExpanded ? 95 : PEEK_VIEW_HEIGHT, TIMING_CONFIG),
-      padding: withTiming(isExpanded ? 10 : 0, TIMING_CONFIG),
+      height: withTiming(isExpanded ? 100 : PEEK_VIEW_HEIGHT, TIMING_CONFIG),
+      padding: withTiming(isExpanded ? 11 : 0, TIMING_CONFIG),
       gap: withTiming(isExpanded ? 3 : 0, TIMING_CONFIG),
     };
   });
@@ -104,7 +106,7 @@ export default function FlowBar({
   const animatedHandleStyle = useAnimatedStyle(() => {
     return {
       borderRadius: withTiming(
-        isExpanded ? 10 : PEEK_VIEW_HEIGHT,
+        isExpanded ? 12 : PEEK_VIEW_HEIGHT,
         TIMING_CONFIG
       ),
     };
@@ -184,14 +186,14 @@ export default function FlowBar({
       >
         <View
           style={{
-            paddingHorizontal: 20,
+            paddingHorizontal: 21,
           }}
         >
           <View
             style={[
               styles.peek,
               {
-                marginVertical: FULL_VIEW_COVER_HEIGHT / 2,
+                marginVertical: FULL_VIEW_COVER_HEIGHT / 2.5,
                 maxHeight: FULL_VIEW_HEIGHT,
                 overflow: "visible",
                 borderWidth: 1,
@@ -208,9 +210,9 @@ export default function FlowBar({
           <Overlay
             stops={[
               backgroundColor + "dc",
-              backgroundColor + "99",
+              backgroundColor + "bc",
               "transparent",
-              backgroundColor + "99",
+              backgroundColor + "bc",
               backgroundColor + "dc",
             ]}
           />
@@ -363,7 +365,7 @@ const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
   return (
     <View
       style={{
-        paddingHorizontal: 20,
+        paddingHorizontal: 21,
         flex: 1,
         gap: 12,
         flexDirection: "row",
@@ -407,7 +409,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "red",
     alignSelf: "center",
-    maxWidth: 360,
+    maxWidth: 380,
     bottom: "1.6%",
     overflow: "hidden",
   },
