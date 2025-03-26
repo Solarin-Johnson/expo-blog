@@ -79,13 +79,13 @@ export default function FlowBar({
   });
 
   const scrollTitleViewStyle = useAnimatedStyle(() => {
-    const translateY = withTiming(
+    const translateY = withSpring(
       interpolate(
         currentIndex.value,
         [0, totalSections],
         [0, -totalSections * PEEK_VIEW_HEIGHT]
       ),
-      { duration: 400 }
+      SPRING_CONFIG
     );
 
     if (isExpanded) return {};
@@ -120,13 +120,13 @@ export default function FlowBar({
   });
 
   const scrollFullTitleViewStyle = useAnimatedStyle(() => {
-    const translateY = withTiming(
+    const translateY = withSpring(
       interpolate(
         currentIndex.value,
         [0, totalSections],
         [0, -totalSections * FULL_VIEW_HEIGHT]
       ),
-      { duration: 400 }
+      SPRING_CONFIG
     );
 
     return {
@@ -138,47 +138,46 @@ export default function FlowBar({
     <Animated.View
       style={[styles.container, { backgroundColor }, animatedTextStyle]}
     >
-      <Animated.View style={[styles.main, animatedMainStyle]}>
-        <Pressable
-          style={styles.handle}
-          onPress={() => setIsExpanded((prev) => !prev)}
-        >
-          <Animated.View style={[styles.handleCircle, animatedHandleStyle]}>
-            <Image
-              style={styles.image}
-              source="https://avatars.githubusercontent.com/u/103961416?s=400&u=fd3d0b5e7536506aa57da94b49d54bc3c4f26fc4&v=4"
-              contentFit="cover"
-            />
-          </Animated.View>
-        </Pressable>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            maxHeight: "100%",
-          }}
-        >
-          <View style={styles.peek}>
-            <Animated.View style={scrollTitleViewStyle}>
-              <SectionList height={PEEK_VIEW_HEIGHT} />
+      <Pressable onPress={() => setIsExpanded((prev) => !prev)}>
+        <Animated.View style={[styles.main, animatedMainStyle]}>
+          <View style={styles.handle}>
+            <Animated.View style={[styles.handleCircle, animatedHandleStyle]}>
+              <Image
+                style={styles.image}
+                source="https://avatars.githubusercontent.com/u/103961416?s=400&u=fd3d0b5e7536506aa57da94b49d54bc3c4f26fc4&v=4"
+                contentFit="cover"
+              />
             </Animated.View>
-            <Overlay />
           </View>
-          {
-            <Animated.View style={animatedAuthorStyle}>
-              <ThemedText
-                light
-                style={{
-                  fontSize: scaleFont(14.8),
-                }}
-              >
-                {author}
-              </ThemedText>
-            </Animated.View>
-          }
-        </View>
-        <RadialProgress progress={scrollProgress} isExpanded={isExpanded} />
-      </Animated.View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              maxHeight: "100%",
+            }}
+          >
+            <View style={styles.peek}>
+              <Animated.View style={scrollTitleViewStyle}>
+                <SectionList height={PEEK_VIEW_HEIGHT} />
+              </Animated.View>
+              <Overlay />
+            </View>
+            {
+              <Animated.View style={animatedAuthorStyle}>
+                <ThemedText
+                  light
+                  style={{
+                    fontSize: scaleFont(14.8),
+                  }}
+                >
+                  {author}
+                </ThemedText>
+              </Animated.View>
+            }
+          </View>
+          <RadialProgress progress={scrollProgress} isExpanded={isExpanded} />
+        </Animated.View>
+      </Pressable>
       <Animated.View
         style={{
           overflow: "hidden",
@@ -249,6 +248,7 @@ const SectionList = ({
               fontSize: scaleFont(14.5),
               fontFamily: !small ? "GeistSemiBold" : "GeistRegular",
               paddingRight: 8,
+              userSelect: "none",
             }}
             numberOfLines={1}
             ellipsizeMode="tail"
@@ -274,7 +274,10 @@ const RadialProgress = ({
   const size = 32;
 
   const animatedProps = useAnimatedProps(() => ({
-    strokeDashoffset: (1 - progress.value) * circumference,
+    strokeDashoffset: withSpring(
+      (1 - progress.value) * circumference,
+      SPRING_CONFIG
+    ),
   }));
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -359,7 +362,10 @@ const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
   const totalTime = useSharedValue(TOTAL_TIME * 60);
 
   const timeCovered = useDerivedValue(() => {
-    return Math.ceil(totalTime.value * progress.value);
+    return Math.min(
+      Math.ceil(totalTime.value * progress.value),
+      totalTime.value
+    );
   });
 
   return (
@@ -392,7 +398,7 @@ const LinearProgress = ({ progress }: { progress: SharedValue<number> }) => {
               borderRadius: 3,
             },
             useAnimatedStyle(() => ({
-              width: `${progress.value * 100}%`,
+              width: withSpring(`${progress.value * 100}%`, SPRING_CONFIG),
             })),
           ]}
         />
@@ -422,6 +428,7 @@ const styles = StyleSheet.create({
 
   overlay: {
     ...StyleSheet.absoluteFillObject,
+    pointerEvents: "none",
   },
 
   main: {
