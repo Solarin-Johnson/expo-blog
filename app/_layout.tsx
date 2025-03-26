@@ -56,40 +56,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <Head>
-        <title>Expo Blog</title>
-        <meta
-          name="description"
-          content="Single screen blog demo with expo and reanimated."
-        />
-
-        {/* Open Graph / Facebook */}
-        <meta
-          name="og:image"
-          content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="675" />
-        <meta property="og:title" content="Expo Blog" />
-        <meta
-          property="og:description"
-          content="Single screen blog demo with expo and reanimated"
-        />
-        <meta property="og:url" content="https://expo-blog.expo.app" />
-        <meta property="og:type" content="blog" />
-
-        {/* Twitter */}
-        <meta
-          name="twitter:image"
-          content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Expo Blog" />
-        <meta
-          name="twitter:description"
-          content="Single screen blog demo with expo and reanimated."
-        />
-      </Head>
+      <HeadComponent />
       <SafeAreaProvider>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -101,5 +68,45 @@ export default function RootLayout() {
         </ThemeProvider>
       </SafeAreaProvider>
     </>
+  );
+}
+
+function HeadComponent() {
+  return (
+    <Head>
+      <title>Expo Blog</title>
+      <meta
+        name="description"
+        content="Single screen blog demo with expo and reanimated."
+      />
+      <meta name="color-scheme" content="light dark" />
+
+      {/* Open Graph / Facebook */}
+      <meta
+        name="og:image"
+        content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
+      />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="675" />
+      <meta property="og:title" content="Expo Blog" />
+      <meta
+        property="og:description"
+        content="Single screen blog demo with expo and reanimated"
+      />
+      <meta property="og:url" content="https://expo-blog.expo.app" />
+      <meta property="og:type" content="blog" />
+
+      {/* Twitter */}
+      <meta
+        name="twitter:image"
+        content="https://raw.githubusercontent.com/Solarin-Johnson/expo-blog/refs/heads/main/assets/images/twitter-cover.png"
+      />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Expo Blog" />
+      <meta
+        name="twitter:description"
+        content="Single screen blog demo with expo and reanimated."
+      />
+    </Head>
   );
 }
