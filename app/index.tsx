@@ -10,7 +10,6 @@ import { BLOG_DATA } from "@/constants";
 import { ThemedView } from "@/components/ThemedView";
 import Article from "@/components/ui/Article";
 import FlowBar from "@/components/ui/FlowBar";
-import TimeFlow from "@/components/ui/TimeFlow";
 
 const { content, title, sections } = BLOG_DATA;
 
@@ -52,7 +51,7 @@ export default function Index() {
   );
 
   return (
-    <ThemedView style={{ flex: 1 }}>
+    <ThemedView style={{ flex: 1, overflow: "hidden" }}>
       <Animated.FlatList
         ListHeaderComponent={() => (
           <Header title={title} content={content} onBackPress={() => {}} />
